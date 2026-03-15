@@ -1,27 +1,12 @@
-// HAPP — Firebase Configuration
-// ─────────────────────────────────────────────────────────────────────────────
-// SETUP INSTRUCTIONS:
-// 1. Go to https://console.firebase.google.com
-// 2. Create a new project called "happ-health-tracker"
-// 3. Add a Web App to the project
-// 4. Copy the firebaseConfig object and paste it below
-// 5. Go to Firestore Database → Create database → Start in production mode
-// 6. Set Firestore rules (see rules section at bottom of this file)
-// ─────────────────────────────────────────────────────────────────────────────
-
-// Replace these values with your Firebase project config:
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBOWscNQCAsBeb3k2X-Ffw0eCbsZPsd8Wc",
+  authDomain: "health-dashboard-8cb07.firebaseapp.com",
+  projectId: "health-dashboard-8cb07",
+  storageBucket: "health-dashboard-8cb07.firebasestorage.app",
+  messagingSenderId: "534790791032",
+  appId: "1:534790791032:web:c62f121b5b3e86faf3328d"
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Firebase initialisation (using compat SDK loaded via CDN in index.html)
-// ─────────────────────────────────────────────────────────────────────────────
 let db = null;
 let firebaseReady = false;
 
@@ -42,5 +27,4 @@ function initFirebase() {
   }
 }
 
-// Call on load
 initFirebase();
