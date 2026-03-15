@@ -2,8 +2,8 @@
 // Caches all app shell files for offline use
 // Strategy: Cache First for static assets, Network First for Firebase
 
-const CACHE_NAME    = 'happ-v3';
-const CACHE_VERSION = 3;
+const CACHE_NAME    = 'happ-v4';
+const CACHE_VERSION = 4;
 
 const STATIC_ASSETS = [
   '/',
