@@ -364,11 +364,13 @@ const SupplementsModule = {
     // Remove from today's checked
     this._todayChecked.delete(id);
 
-    // Update state to stopped
-    this._states[id].status = 'stopped';
+    // Reset state to not_started so it appears in schedule for future use
+    this._states[id].status = 'not_started';
+    this._states[id].startDate = null;
+    this._states[id].endDate = null;
     await StorageService.saveSupplementStates(this._states);
     await this.render();
-    this._showToast(`📁 ${name} moved to Archive`);
+    this._showToast(`📁 ${name} archived — available to restart anytime`);
   },
 
   async setEndDate(id, dateStr) {
