@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (page === 'dashboard') await DashboardModule.render();
     if (page === 'schedule') await SupplementsModule.render();
     if (page === 'settings') await SupplementsModule.renderAllSupplements('all-supplements-container');
+    if (page === 'measurements') await MeasurementsModule.render();
   };
 
   // Set dashboard date
@@ -40,6 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialise dashboard
   await DashboardModule.init();
+
+  // Initialise measurements module
+  await MeasurementsModule.init();
 
   // Reset day button
   const resetBtn = document.getElementById('reset-day-btn');
