@@ -123,5 +123,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (sn && profile.name)      sn.value = profile.name;
   }
 
+  // Handle deep links (?page=schedule etc)
+  const urlParams = new URLSearchParams(window.location.search);
+  const deepPage  = urlParams.get('page');
+  if (deepPage && ['dashboard','schedule','measurements','archive','settings'].includes(deepPage)) {
+    Router.navigate(deepPage);
+  }
+
+  // PWA install prompt
+  let _deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    _deferredInstallPrompt = e;
+    const banner = document.getElementById('pwa-install-banner');
+    if (banner) banner.style.display = 'flex';
+  });
+
+  const pwaInstallBtn  = document.getElementById('pwa-install');
+  const pwaDismissBtn  = document.getElementById('pwa-dismiss');
+  const pwaBanner      = document.getElementById('pwa-install-banner');
+
+  if (pwaInstallBtn) {
+    pwaInstallBtn.addEventListener('click', async () => {
+      if (!_deferredInstallPrompt) return;
+      _deferredInstallPrompt.prompt();
+      const { outcome } = await _deferredInstallPrompt.userChoice;
+      console.log('[PWA] Install outcome:', outcome);
+      _deferredInstallPrompt = null;
+      if (pwaBanner) pwaBanner.style.display = 'none';
+    });
+  }
+
+  if (pwaDismissBtn) {
+    pwaDismissBtn.addEventListener('click', () => {
+      if (pwaBanner) pwaBanner.style.display = 'none';
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    console.log('[PWA] App installed!');
+    if (pwaBanner) pwaBanner.style.display = 'none';
+  });
+
   console.log('[HAPP] Ready');
 });

@@ -35,3 +35,70 @@ input, textarea, select { font-family: inherit; }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 10px; }
+
+/* ── Mobile optimizations ─────────────────────────────────────────────────── */
+
+/* Safe area insets for notched phones */
+@supports (padding: max(0px)) {
+  .mobile-nav {
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    height: calc(60px + env(safe-area-inset-bottom));
+  }
+  .main-content {
+    padding-bottom: calc(var(--mobile-nav-h) + env(safe-area-inset-bottom) + 20px);
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 700px) {
+  .btn        { min-height: 40px; padding: 8px 14px; }
+  .btn-sm     { min-height: 34px; }
+  .input      { min-height: 44px; font-size: 16px; } /* 16px prevents iOS zoom */
+  .supp-check-btn { width: 32px; height: 32px; }
+
+  /* Stat cards mobile */
+  .stat-value  { font-size: 20px; }
+  .stat-label  { font-size: 10px; }
+
+  /* Charts full width on mobile */
+  .chart-card  { padding: 14px; }
+  .chart-title { font-size: 11px; margin-bottom: 10px; }
+
+  /* Page title smaller on mobile */
+  .page-title  { font-size: 22px; }
+
+  /* Supp card details single col on mobile */
+  .supp-card-details { grid-template-columns: 1fr; }
+
+  /* Archive meta 2-col on mobile */
+  .archive-meta { grid-template-columns: 1fr 1fr; }
+
+  /* Measure form stack on mobile */
+  .measure-form-row { flex-direction: column; align-items: stretch; }
+  .measure-field    { width: 100%; }
+  #save-measure-btn { width: 100%; justify-content: center; }
+
+  /* Settings rows stack */
+  .settings-row { flex-direction: column; align-items: flex-start; }
+  .settings-row .input { max-width: 100% !important; width: 100%; }
+
+  /* Supplement manage actions wrap */
+  .supp-manage-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+/* Prevent text selection on interactive elements */
+.sidebar-item,
+.mobile-nav-item,
+.supp-check-btn,
+.btn {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Smooth scrolling */
+.main-content { scroll-behavior: smooth; }
+
+/* iOS momentum scrolling */
+.main-content, .sidebar {
+  -webkit-overflow-scrolling: touch;
+}
