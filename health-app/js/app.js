@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Run encryption self-test
   EncryptionService.selfTest();
 
+  // Sync encryption key across all devices via Firestore
+  await EncryptionService.loadOrCreateKey();
+
   // Initialise router (shows dashboard by default)
   Router.init();
 

@@ -23,11 +23,39 @@ const EncryptionService = {
   getKey() {
     const stored = localStorage.getItem(this._KEY_STORAGE);
     if (stored) return stored;
-    // Generate a default key from salt + user agent fingerprint
-    const fingerprint = navigator.userAgent + screen.width + screen.height;
-    const defaultKey = CryptoJS.SHA256(this._DEFAULT_SALT + fingerprint).toString();
+    // Generate a stable device-independent key from salt only
+    const defaultKey = CryptoJS.SHA256(this._DEFAULT_SALT + '-shared').toString();
     localStorage.setItem(this._KEY_STORAGE, defaultKey);
     return defaultKey;
+  },
+
+  // Sync encryption key with Firestore so all devices/browsers share one key.
+  // Call once at app startup before reading any data.
+  async loadOrCreateKey() {
+    // If Firebase not ready, fall back to local key
+    if (typeof db === 'undefined' || !db || !firebaseReady) {
+      return this.getKey();
+    }
+    try {
+      const metaRef = db.collection('healthData').doc('metadata');
+      const metaDoc = await metaRef.get();
+      if (metaDoc.exists && metaDoc.data().encKey) {
+        // Key already exists in Firestore — use it on this device
+        const firestoreKey = metaDoc.data().encKey;
+        localStorage.setItem(this._KEY_STORAGE, firestoreKey);
+        console.log('[Encryption] Key synced from Firestore ✅');
+        return firestoreKey;
+      } else {
+        // No key in Firestore yet — this is the first device; save our key
+        const myKey = this.getKey();
+        await metaRef.set({ encKey: myKey }, { merge: true });
+        console.log('[Encryption] Key saved to Firestore ✅');
+        return myKey;
+      }
+    } catch (e) {
+      console.warn('[Encryption] Could not sync key with Firestore, using local key:', e);
+      return this.getKey();
+    }
   },
 
   setKey(newKey) {
