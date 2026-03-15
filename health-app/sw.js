@@ -1,19 +1,16 @@
 // HAPP — Service Worker
 // Caches all app shell files for offline use
-// Strategy: Cache First for static assets, Network First for Firebase
+// Strategy: Network First for HTML, Cache First for static assets
 
-const CACHE_NAME    = 'happ-v5';
-const CACHE_VERSION = 5;
+const CACHE_NAME    = 'happ-v6';
+const CACHE_VERSION = 6;
 
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
   '/css/base.css',
   '/css/layout.css',
   '/css/components.css',
   '/js/app.js',
   '/js/router.js',
-  '/firebase/firebase.js',
   '/services/encryptionService.js',
   '/services/storageService.js',
   '/services/complianceService.js',
@@ -22,6 +19,7 @@ const STATIC_ASSETS = [
   '/modules/supplementsModule.js',
   '/modules/measurementsModule.js',
   '/modules/archiveModule.js',
+  '/modules/supplementsRefModule.js',
   '/ui/sidebar.js',
   '/ui/cards.js',
   '/ui/charts.js',
@@ -30,7 +28,7 @@ const STATIC_ASSETS = [
   'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
 ];
 
-// Install — cache all static assets
+// Install — cache static assets (NOT index.html — always fetch fresh)
 self.addEventListener('install', event => {
   console.log('[SW] Installing...');
   event.waitUntil(
@@ -56,7 +54,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch — Cache First for static, passthrough for Firebase/Firestore
+// Fetch — Network First for HTML, Cache First for everything else
 self.addEventListener('fetch', event => {
   const url = event.request.url;
 
@@ -70,22 +68,24 @@ self.addEventListener('fetch', event => {
     return; // network only
   }
 
-  // Cache first strategy for everything else
+  // Network First for navigation (HTML pages) — always get fresh HTML
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
+  // Cache First for all other static assets
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        // Cache valid responses
         if (response && response.status === 200 && event.request.method === 'GET') {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
-      }).catch(() => {
-        // Offline fallback for navigation requests
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
       });
     })
   );
