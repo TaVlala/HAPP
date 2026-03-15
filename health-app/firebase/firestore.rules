@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // HAPP is single-user — only allow reads/writes from the web app
+    // Since there's no auth, we restrict by collection path
+    // For production: add Firebase App Check
+    match /healthData/{document} {
+      allow read, write: if true; // Phase 9: tighten with App Check
+    }
+  }
+}
