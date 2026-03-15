@@ -54,24 +54,66 @@ const SupplementsModule = {
     // Group supplements by time block
     const timeBlocks = this._buildTimeBlocks();
 
+    let html = '';
+
     if (timeBlocks.length === 0) {
-      container.innerHTML = '<div class="empty-state">No active supplements.<br>Go to a supplement and tap Start to begin tracking.</div>';
-      this._updateProgressBar();
-      return;
+      html += '<div class="empty-state">No active supplements.<br>Use the section below to start tracking.</div>';
+    } else {
+      html += timeBlocks.map(block => this._renderTimeBlock(block)).join('');
     }
 
-    container.innerHTML = timeBlocks.map(block => this._renderTimeBlock(block)).join('');
+    // Paused supplements section
+    const paused = Object.values(this._states).filter(s => s.status === 'paused');
+    if (paused.length > 0) {
+      html += `<div class="manage-section">
+        <div class="manage-section-title">⏸ Paused (${paused.length})</div>
+        ${paused.map(s => this._renderInactiveCard(s.id, 'paused')).join('')}
+      </div>`;
+    }
 
-    // Attach toggle listeners
+    // Not started supplements section
+    const notStarted = Object.values(this._states).filter(s => s.status === 'not_started');
+    if (notStarted.length > 0) {
+      html += `<div class="manage-section">
+        <div class="manage-section-title">○ Not Started (${notStarted.length})</div>
+        ${notStarted.map(s => this._renderInactiveCard(s.id, 'not_started')).join('')}
+      </div>`;
+    }
+
+    container.innerHTML = html;
+
+    // Attach toggle listeners for active cards
     container.querySelectorAll('.supp-check-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const id = btn.dataset.id;
-        this.toggleCheck(id);
+        this.toggleCheck(btn.dataset.id);
       });
     });
 
     this._updateProgressBar();
+  },
+
+  _renderInactiveCard(id, status) {
+    const state = this._states[id];
+    const seed = SUPPLEMENT_SEED.find(s => s.id === id);
+    const name = seed ? seed.name : (state ? state.name : id);
+    const dose = seed ? seed.dose : (state ? state.dose : '');
+    const daysOn = state && state.startDate ? this._calcDaysOn(state.startDate) : null;
+
+    const actions = status === 'paused'
+      ? `<button class="btn btn-primary btn-sm" onclick="SupplementsModule.resumeSupplement('${id}')">▶ Resume</button>
+         <button class="btn btn-danger btn-sm" onclick="SupplementsModule.stopSupplement('${id}')">⏹ Stop</button>`
+      : `<button class="btn btn-primary btn-sm" onclick="SupplementsModule.startSupplement('${id}')">▶ Start</button>`;
+
+    return `
+      <div class="supp-inactive-card">
+        <div class="supp-inactive-left">
+          <span class="supp-name">${name}</span>
+          ${dose ? `<span style="font-size:12px;color:var(--muted);margin-left:8px">${dose}</span>` : ''}
+          ${daysOn !== null ? `<span class="badge badge-muted" style="margin-left:6px">Day ${daysOn}</span>` : ''}
+        </div>
+        <div class="supp-inactive-actions">${actions}</div>
+      </div>`;
   },
 
   _buildTimeBlocks() {
