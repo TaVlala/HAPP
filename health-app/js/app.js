@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Initialise router (shows dashboard by default)
   Router.init();
 
+  // Re-render modules on page navigation
+  const origNavigate = Router.navigate.bind(Router);
+  Router.navigate = async function(page) {
+    origNavigate(page);
+    if (page === 'schedule') await SupplementsModule.render();
+    if (page === 'settings') await SupplementsModule.renderAllSupplements('all-supplements-container');
+  };
+
   // Set dashboard date
   const dateEl = document.getElementById('dashboard-date');
   if (dateEl) {
@@ -24,6 +32,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
   }
+
+  // Initialise supplements module
+  await SupplementsModule.init();
+  await SupplementsModule.render();
+
+  // Reset day button
+  const resetBtn = document.getElementById('reset-day-btn');
+  if (resetBtn) resetBtn.addEventListener('click', () => SupplementsModule.resetDay());
+
+  // Render supplement manager in settings
+  await SupplementsModule.renderAllSupplements('all-supplements-container');
 
   console.log('[HAPP] Ready');
 });
