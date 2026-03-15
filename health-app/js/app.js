@@ -21,11 +21,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const origNavigate = Router.navigate.bind(Router);
   Router.navigate = async function(page) {
     origNavigate(page);
-    if (page === 'dashboard') await DashboardModule.render();
-    if (page === 'schedule') await SupplementsModule.render();
-    if (page === 'settings') await SupplementsModule.renderAllSupplements('all-supplements-container');
-    if (page === 'measurements') await MeasurementsModule.render();
-    if (page === 'archive') await ArchiveModule.render();
+    try {
+      if (page === 'dashboard')    await DashboardModule.render();
+      if (page === 'schedule')     await SupplementsModule.render();
+      if (page === 'measurements') await MeasurementsModule.render();
+      if (page === 'archive')      await ArchiveModule.render();
+      if (page === 'settings')     await SupplementsModule.renderAllSupplements('all-supplements-container');
+    } catch(e) {
+      console.error('[Router] Render error on', page, e);
+    }
   };
 
   // Set dashboard date
