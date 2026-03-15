@@ -370,7 +370,6 @@ const DAILY_SCHEDULE = [
   { time: "On waking — fasted", time_sort: "06:30", items: ["s-017","s-013"] },
   { time: "7:00 am — Nexium window (flare only)", time_sort: "07:00", items: ["s-020"] },
   { time: "7:45 am — With breakfast", time_sort: "07:45",
-    note: "Best breakfast for absorption: eggs + olive oil + oats. Fat essential for D3, K2, Omega-3, Quercetin, PS.",
     items: ["s-007","s-021","s-023","s-005","s-008","s-002","s-006","s-009","s-010","s-015","s-012","s-016"] },
   { time: "10:30 am — Between meals", time_sort: "10:30",
     note: "Between meals only. 2h from all medications.", items: ["s-014"] },
