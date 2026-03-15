@@ -263,3 +263,43 @@
 .chart-card {
   min-height: 240px;
 }
+
+/* ── Archive Cards ─────────────────────────────────────────────────────────── */
+.archive-list { display: flex; flex-direction: column; gap: 10px; }
+
+.archive-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  transition: border-color 0.15s;
+}
+.archive-card:hover { border-color: var(--border2); }
+
+.archive-card-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  gap: 8px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.archive-card-left {
+  display: flex; align-items: center;
+  gap: 6px; flex-wrap: wrap;
+}
+.archive-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.archive-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .archive-meta { grid-template-columns: repeat(2, 1fr); }
+}
+
+.archive-meta-item {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex; flex-direction: column; gap: 3px;
+}
