@@ -368,16 +368,16 @@ const SUPPLEMENT_SEED = [
 // Daily schedule time blocks (reference — user state managed in Firestore)
 const DAILY_SCHEDULE = [
   { time: "On waking — fasted", time_sort: "06:30", items: ["s-017","s-013"] },
-  { time: "7:00 am — Nexium window (flare only)", time_sort: "07:00", items: ["s-020"] },
-  { time: "7:45 am — With breakfast", time_sort: "07:45",
+  { time: "Before breakfast — Nexium (flare only)", time_sort: "07:00", items: ["s-020"] },
+  { time: "With breakfast", time_sort: "07:45",
     items: ["s-007","s-021","s-023","s-005","s-008","s-002","s-006","s-009","s-010","s-015","s-012","s-016","s-004"] },
-  { time: "10:30 am — Between meals", time_sort: "10:30",
+  { time: "Between meals — mid-morning", time_sort: "10:30",
     note: "Between meals only. 2h from all medications.", items: ["s-014"] },
-  { time: "1:00 pm — With lunch (main meal)", time_sort: "13:00", items: ["s-022","s-024","s-003"] },
-  { time: "6:00 pm — Before dinner (flare only)", time_sort: "18:00", items: ["s-020"] },
-  { time: "6:45 pm — With dinner (light meal)", time_sort: "18:45", items: ["s-007","s-022","s-002","s-003"] },
-  { time: "After dinner — 2h after evening Nexium", time_sort: "21:00", items: ["s-001"] },
-  { time: "10:00 pm — Bedtime", time_sort: "22:00", items: ["s-004","s-025","s-011"] }
+  { time: "With lunch", time_sort: "13:00", items: ["s-022","s-024","s-003"] },
+  { time: "Before dinner — Nexium (flare only)", time_sort: "18:00", items: ["s-020"] },
+  { time: "With dinner", time_sort: "18:45", items: ["s-007","s-022","s-002","s-003"] },
+  { time: "After dinner", time_sort: "21:00", items: ["s-001"] },
+  { time: "Bedtime", time_sort: "22:00", items: ["s-004","s-025","s-011"] }
 ];
 
 // Introduction phases (reference only — NOT gates)
