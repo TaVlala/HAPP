@@ -1,6 +1,7 @@
 [build]
   publish = "health-app"
   command = "node inject-config.js"
+  base = ""
 
 [[headers]]
   for = "/*"
