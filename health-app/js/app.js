@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const origNavigate = Router.navigate.bind(Router);
   Router.navigate = async function(page) {
     origNavigate(page);
+    if (page === 'dashboard') await DashboardModule.render();
     if (page === 'schedule') await SupplementsModule.render();
     if (page === 'settings') await SupplementsModule.renderAllSupplements('all-supplements-container');
   };
@@ -36,6 +37,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Initialise supplements module
   await SupplementsModule.init();
   await SupplementsModule.render();
+
+  // Initialise dashboard
+  await DashboardModule.init();
 
   // Reset day button
   const resetBtn = document.getElementById('reset-day-btn');
