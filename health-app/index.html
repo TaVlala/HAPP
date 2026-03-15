@@ -2,68 +2,226 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0f1117">
-  <meta name="description" content="Personal health tracker — supplements, measurements, compliance">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HAPP">
   <link rel="manifest" href="manifest.json">
   <title>HAPP — Health Tracker</title>
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
-  <div id="app">
-    <!-- App shell rendered by sidebar.js -->
-    <!-- Pages rendered by each module -->
-    <div class="app-shell">
-      <!-- Sidebar (desktop) -->
-      <nav class="sidebar" id="sidebar"></nav>
+<div class="app-shell">
 
-      <!-- Main content area -->
-      <main class="main-content" id="main-content">
-        <div id="page-dashboard" class="page"></div>
-        <div id="page-schedule"  class="page"></div>
-        <div id="page-measurements" class="page"></div>
-        <div id="page-archive" class="page"></div>
-        <div id="page-settings" class="page"></div>
-      </main>
+  <!-- SIDEBAR (desktop) -->
+  <nav class="sidebar" id="sidebar">
+    <!-- Rendered by sidebar.js -->
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- PAGE: Dashboard -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-sub" id="dashboard-date"></p>
+      </div>
+      <!-- Stat cards row -->
+      <div class="stat-grid" id="stat-grid">
+        <!-- Rendered by dashboardModule -->
+        <div class="stat-card skeleton"></div>
+        <div class="stat-card skeleton"></div>
+        <div class="stat-card skeleton"></div>
+        <div class="stat-card skeleton"></div>
+      </div>
+      <!-- Second row -->
+      <div class="stat-grid" id="stat-grid-2">
+        <div class="stat-card skeleton"></div>
+        <div class="stat-card skeleton"></div>
+        <div class="stat-card skeleton"></div>
+        <div class="stat-card skeleton"></div>
+      </div>
+      <!-- Charts -->
+      <div class="charts-row">
+        <div class="chart-card" id="chart-weight-card">
+          <div class="chart-title">Weight Progress</div>
+          <canvas id="chart-weight" height="180"></canvas>
+        </div>
+        <div class="chart-card" id="chart-fat-card">
+          <div class="chart-title">Body Fat %</div>
+          <canvas id="chart-fat" height="180"></canvas>
+        </div>
+      </div>
     </div>
 
-    <!-- Mobile bottom nav -->
-    <nav class="mobile-nav" id="mobile-nav"></nav>
+    <!-- PAGE: Daily Schedule -->
+    <div class="page" id="page-schedule">
+      <div class="page-header">
+        <h1 class="page-title">Daily Schedule</h1>
+        <p class="page-sub">Your supplement checklist for today</p>
+      </div>
+      <!-- Compliance bar -->
+      <div class="compliance-bar" id="compliance-bar">
+        <div class="compliance-progress">
+          <div class="progress-track" style="width:200px">
+            <div class="progress-fill" id="schedule-prog-fill" style="width:0%"></div>
+          </div>
+          <span class="progress-label" id="schedule-prog-label">0 of 0 done</span>
+        </div>
+        <button class="btn btn-ghost" id="reset-day-btn">&#8634; Reset day</button>
+      </div>
+      <!-- Time blocks rendered by supplementsModule -->
+      <div id="schedule-content">
+        <div class="loading-msg">Loading schedule...</div>
+      </div>
+    </div>
+
+    <!-- PAGE: Body Measurements -->
+    <div class="page" id="page-measurements">
+      <div class="page-header">
+        <h1 class="page-title">Body Measurements</h1>
+        <p class="page-sub">Track weight and body fat over time</p>
+      </div>
+      <!-- Entry form -->
+      <div class="card measure-form-card">
+        <div class="section-label">Log Today's Measurements</div>
+        <div class="measure-form-row">
+          <div class="measure-field">
+            <label class="field-label">Weight (kg)</label>
+            <input type="number" class="input" id="input-weight" placeholder="e.g. 92.5" step="0.1" min="40" max="250">
+          </div>
+          <div class="measure-field">
+            <label class="field-label">Body Fat %</label>
+            <input type="number" class="input" id="input-bodyfat" placeholder="e.g. 24.5" step="0.1" min="5" max="60">
+          </div>
+          <button class="btn btn-primary" id="save-measure-btn">Save Entry</button>
+        </div>
+        <p class="field-hint">You can log as many times as you like — each entry is timestamped.</p>
+      </div>
+      <!-- History table -->
+      <div class="section-label" style="margin-top:28px;">History</div>
+      <div id="measurements-history">
+        <div class="loading-msg">Loading history...</div>
+      </div>
+    </div>
+
+    <!-- PAGE: Archive -->
+    <div class="page" id="page-archive">
+      <div class="page-header">
+        <h1 class="page-title">Archive</h1>
+        <p class="page-sub">Stopped and completed supplements — nothing is permanently deleted</p>
+      </div>
+      <div id="archive-content">
+        <div class="loading-msg">Loading archive...</div>
+      </div>
+    </div>
+
+    <!-- PAGE: Settings -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <h1 class="page-title">Settings</h1>
+        <p class="page-sub">Profile and app configuration</p>
+      </div>
+      <!-- Profile card -->
+      <div class="card settings-card">
+        <div class="section-label">Profile</div>
+        <div class="settings-row">
+          <label class="field-label">Plan Start Date</label>
+          <input type="date" class="input" id="setting-plan-start" style="max-width:200px">
+        </div>
+        <div class="settings-row" style="margin-top:12px">
+          <label class="field-label">Display Name</label>
+          <input type="text" class="input" id="setting-name" placeholder="David" style="max-width:200px">
+        </div>
+        <button class="btn btn-primary" id="save-settings-btn" style="margin-top:16px">Save Settings</button>
+      </div>
+      <!-- Add custom supplement -->
+      <div class="card settings-card" style="margin-top:20px">
+        <div class="section-label">Add Custom Supplement</div>
+        <div class="add-supp-form">
+          <div class="settings-row">
+            <label class="field-label">Name</label>
+            <input type="text" class="input" id="add-supp-name" placeholder="Supplement name" style="max-width:300px">
+          </div>
+          <div class="settings-row" style="margin-top:10px">
+            <label class="field-label">Dose</label>
+            <input type="text" class="input" id="add-supp-dose" placeholder="e.g. 500mg" style="max-width:200px">
+          </div>
+          <div class="settings-row" style="margin-top:10px">
+            <label class="field-label">Timing</label>
+            <input type="text" class="input" id="add-supp-timing" placeholder="e.g. With breakfast" style="max-width:200px">
+          </div>
+          <div class="settings-row" style="margin-top:10px">
+            <label class="field-label">Notes</label>
+            <input type="text" class="input" id="add-supp-notes" placeholder="Optional notes" style="max-width:300px">
+          </div>
+          <button class="btn btn-primary" id="add-supp-btn" style="margin-top:16px">+ Add Supplement</button>
+        </div>
+      </div>
+      <!-- Encryption key card -->
+      <div class="card settings-card" style="margin-top:20px">
+        <div class="section-label">Encryption</div>
+        <div class="alert alert-info" style="margin-bottom:12px">All your health data is encrypted before being stored in Firebase. The encryption key is stored locally on this device.</div>
+        <div class="settings-row">
+          <label class="field-label">Encryption Key</label>
+          <input type="password" class="input" id="setting-enc-key" placeholder="Set your encryption key" style="max-width:280px">
+        </div>
+        <button class="btn btn-ghost" id="save-enc-key-btn" style="margin-top:12px">Update Key</button>
+        <p class="field-hint" style="margin-top:8px">&#9888;&#65039; If you change this key, existing encrypted data will become unreadable. Keep it safe.</p>
+      </div>
+      <!-- App version -->
+      <div class="card settings-card" style="margin-top:20px; opacity:0.6">
+        <div class="section-label">About</div>
+        <p style="font-size:13px; color:var(--muted)">HAPP — Personal Health Tracker · v0.1.0</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-item active" data-nav="dashboard" onclick="Router.navigate('dashboard')">
+    <span class="mobile-nav-icon">&#11035;</span>
+    <span>Dashboard</span>
   </div>
+  <div class="mobile-nav-item" data-nav="schedule" onclick="Router.navigate('schedule')">
+    <span class="mobile-nav-icon">&#128138;</span>
+    <span>Schedule</span>
+  </div>
+  <div class="mobile-nav-item" data-nav="measurements" onclick="Router.navigate('measurements')">
+    <span class="mobile-nav-icon">&#128202;</span>
+    <span>Body</span>
+  </div>
+  <div class="mobile-nav-item" data-nav="archive" onclick="Router.navigate('archive')">
+    <span class="mobile-nav-icon">&#128193;</span>
+    <span>Archive</span>
+  </div>
+  <div class="mobile-nav-item" data-nav="settings" onclick="Router.navigate('settings')">
+    <span class="mobile-nav-icon">&#9881;&#65039;</span>
+    <span>Settings</span>
+  </div>
+</nav>
 
-  <!-- Firebase -->
-  <script type="module" src="firebase/firebase.js"></script>
-
-  <!-- Services -->
-  <script type="module" src="services/encryptionService.js"></script>
-  <script type="module" src="services/storageService.js"></script>
-  <script type="module" src="services/complianceService.js"></script>
-
-  <!-- Data -->
-  <script type="module" src="data/supplements.js"></script>
-
-  <!-- Modules -->
-  <script type="module" src="modules/dashboardModule.js"></script>
-  <script type="module" src="modules/supplementsModule.js"></script>
-  <script type="module" src="modules/measurementsModule.js"></script>
-  <script type="module" src="modules/archiveModule.js"></script>
-
-  <!-- UI -->
-  <script type="module" src="ui/sidebar.js"></script>
-  <script type="module" src="ui/cards.js"></script>
-  <script type="module" src="ui/charts.js"></script>
-
-  <!-- Core -->
-  <script type="module" src="js/router.js"></script>
-  <script type="module" src="js/app.js"></script>
+<!-- Scripts (type=module would block cross-origin but we use classic for simplicity) -->
+<script src="data/supplements.js"></script>
+<script src="services/encryptionService.js"></script>
+<script src="services/storageService.js"></script>
+<script src="services/complianceService.js"></script>
+<script src="modules/dashboardModule.js"></script>
+<script src="modules/supplementsModule.js"></script>
+<script src="modules/measurementsModule.js"></script>
+<script src="modules/archiveModule.js"></script>
+<script src="ui/sidebar.js"></script>
+<script src="ui/cards.js"></script>
+<script src="ui/charts.js"></script>
+<script src="js/router.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

@@ -1,16 +1,26 @@
 // HAPP — App Entry Point
-// Initialises all modules after DOM is ready
 
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('[HAPP] App initialising...');
+  console.log('[HAPP] Initialising...');
 
-  // Register service worker (Phase 8)
+  // Register service worker
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(console.warn);
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
 
-  // Initialise router
+  // Render sidebar
+  Sidebar.render();
+
+  // Initialise router (shows dashboard by default)
   Router.init();
 
-  console.log('[HAPP] App ready');
+  // Set dashboard date
+  const dateEl = document.getElementById('dashboard-date');
+  if (dateEl) {
+    dateEl.textContent = new Date().toLocaleDateString('en-GB', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+
+  console.log('[HAPP] Ready');
 });
