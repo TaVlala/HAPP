@@ -2,8 +2,8 @@
 // Caches all app shell files for offline use
 // Strategy: Cache First for static assets, Network First for Firebase
 
-const CACHE_NAME    = 'happ-v2';
-const CACHE_VERSION = 2;
+const CACHE_NAME    = 'happ-v3';
+const CACHE_VERSION = 3;
 
 const STATIC_ASSETS = [
   '/',
@@ -59,6 +59,9 @@ self.addEventListener('activate', event => {
 // Fetch — Cache First for static, passthrough for Firebase/Firestore
 self.addEventListener('fetch', event => {
   const url = event.request.url;
+
+  // Ignore non-http(s) requests (e.g. chrome-extension://)
+  if (!url.startsWith('http')) return;
 
   // Let Firebase/Firestore requests pass through to network always
   if (url.includes('firestore.googleapis.com') ||
