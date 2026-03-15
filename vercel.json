@@ -1,5 +1,4 @@
 {
-  "root": "health-app",
   "headers": [
     {
       "source": "/(.*)",
