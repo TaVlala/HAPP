@@ -129,12 +129,13 @@ const MeasurementsModule = {
       el.id = 'measure-msg';
       el.style.cssText = 'font-size:13px;margin-top:10px;transition:opacity 0.3s';
       const form = document.querySelector('.measure-form-card');
-      if (form) form.appendChild(el);
+      if (!form) return; // guard: form not in DOM yet
+      form.appendChild(el);
     }
     el.textContent = text;
     el.style.color = type === 'ok' ? 'var(--accent2)' : 'var(--warn)';
     el.style.opacity = '1';
-    setTimeout(() => { el.style.opacity = '0'; }, 3000);
+    setTimeout(() => { if (el) el.style.opacity = '0'; }, 3000);
   },
 
   getHistory() { return this._history; },

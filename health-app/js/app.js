@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (page === 'schedule')     await SupplementsModule.render();
       if (page === 'measurements') await MeasurementsModule.render();
       if (page === 'archive')      await ArchiveModule.render();
-      if (page === 'supplements') SupplementsRefModule.init();
+      if (page === 'supplements') await SupplementsRefModule.init();
       if (page === 'settings')     await SupplementsModule.renderAllSupplements('all-supplements-container');
     } catch(e) {
       console.error('[Router] Render error on', page, e);
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Handle deep links (?page=schedule etc)
   const urlParams = new URLSearchParams(window.location.search);
   const deepPage  = urlParams.get('page');
-  if (deepPage && ['dashboard','schedule','measurements','archive','settings'].includes(deepPage)) {
+  if (deepPage && ['dashboard','schedule','measurements','archive','supplements','settings'].includes(deepPage)) {
     Router.navigate(deepPage);
   }
 

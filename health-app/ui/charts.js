@@ -54,7 +54,8 @@ const Charts = {
     if (this._weightChart) { this._weightChart.destroy(); this._weightChart = null; }
 
     if (!data.length) {
-      canvas.parentElement.querySelector('.chart-title').insertAdjacentHTML('afterend',
+      const titleEl = canvas.parentElement.querySelector('.chart-title');
+      if (titleEl) titleEl.insertAdjacentHTML('afterend',
         '<p style="color:var(--muted);font-size:12px;margin-top:8px">Log weight measurements to see your progress chart.</p>');
       return;
     }
@@ -103,7 +104,8 @@ const Charts = {
     if (this._fatChart) { this._fatChart.destroy(); this._fatChart = null; }
 
     if (!data.length) {
-      canvas.parentElement.querySelector('.chart-title').insertAdjacentHTML('afterend',
+      const titleEl = canvas.parentElement.querySelector('.chart-title');
+      if (titleEl) titleEl.insertAdjacentHTML('afterend',
         '<p style="color:var(--muted);font-size:12px;margin-top:8px">Log body fat measurements to see your progress chart.</p>');
       return;
     }
