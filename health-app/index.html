@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="description" content="Personal health tracker — supplements, measurements, compliance">
+  <link rel="manifest" href="manifest.json">
+  <title>HAPP — Health Tracker</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div id="app">
+    <!-- App shell rendered by sidebar.js -->
+    <!-- Pages rendered by each module -->
+    <div class="app-shell">
+      <!-- Sidebar (desktop) -->
+      <nav class="sidebar" id="sidebar"></nav>
+
+      <!-- Main content area -->
+      <main class="main-content" id="main-content">
+        <div id="page-dashboard" class="page"></div>
+        <div id="page-schedule"  class="page"></div>
+        <div id="page-measurements" class="page"></div>
+        <div id="page-archive" class="page"></div>
+        <div id="page-settings" class="page"></div>
+      </main>
+    </div>
+
+    <!-- Mobile bottom nav -->
+    <nav class="mobile-nav" id="mobile-nav"></nav>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module" src="firebase/firebase.js"></script>
+
+  <!-- Services -->
+  <script type="module" src="services/encryptionService.js"></script>
+  <script type="module" src="services/storageService.js"></script>
+  <script type="module" src="services/complianceService.js"></script>
+
+  <!-- Data -->
+  <script type="module" src="data/supplements.js"></script>
+
+  <!-- Modules -->
+  <script type="module" src="modules/dashboardModule.js"></script>
+  <script type="module" src="modules/supplementsModule.js"></script>
+  <script type="module" src="modules/measurementsModule.js"></script>
+  <script type="module" src="modules/archiveModule.js"></script>
+
+  <!-- UI -->
+  <script type="module" src="ui/sidebar.js"></script>
+  <script type="module" src="ui/cards.js"></script>
+  <script type="module" src="ui/charts.js"></script>
+
+  <!-- Core -->
+  <script type="module" src="js/router.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
