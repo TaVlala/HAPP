@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Render sidebar
   Sidebar.render();
 
+  // Run encryption self-test
+  EncryptionService.selfTest();
+
   // Initialise router (shows dashboard by default)
   Router.init();
 
