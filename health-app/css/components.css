@@ -303,3 +303,112 @@
   padding: 8px 10px;
   display: flex; flex-direction: column; gap: 3px;
 }
+
+/* ── Supplements Reference Page ───────────────────────────────────────────── */
+
+/* Filter bar */
+.ref-filter-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.ref-filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ref-filter-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); min-width: 48px; flex-shrink: 0;
+}
+.ref-filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-pill {
+  padding: 4px 12px; border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--muted); font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.15s; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.filter-pill:hover  { border-color: var(--accent); color: var(--accent); }
+.filter-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Summary row */
+.ref-summary { margin-bottom: 16px; }
+.ref-summary-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.ref-summary-pill {
+  font-size: 11px; font-weight: 600;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid;
+}
+
+/* Reference grid */
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+@media (max-width: 700px) { .ref-grid { grid-template-columns: 1fr; } }
+
+/* Reference card */
+.ref-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 0.15s;
+}
+.ref-card:hover { border-color: var(--border2); }
+.ref-card-hold  { opacity: 0.65; border-color: rgba(240,95,95,0.2); }
+.ref-card-defer { opacity: 0.8;  border-color: rgba(240,168,79,0.2); }
+
+.ref-card-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 8px; flex-wrap: wrap;
+}
+.ref-card-title-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.ref-card-badges { display: flex; gap: 5px; flex-wrap: wrap; flex-shrink: 0; }
+
+/* Rank number */
+.ref-rank {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  background: var(--surface3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 2px 6px; flex-shrink: 0;
+}
+
+/* Detail grid inside ref card */
+.ref-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+@media (max-width: 480px) { .ref-detail-grid { grid-template-columns: 1fr; } }
+
+/* Why row — full width, slightly larger */
+.ref-detail-why {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  border-left: 3px solid var(--accent2);
+}
+
+/* Notes row — full width, warning colour */
+.ref-detail-notes {
+  background: rgba(240,168,79,0.06);
+  border: 1px solid rgba(240,168,79,0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+/* Phase recommendation */
+.ref-phase-row {
+  font-size: 12px; color: var(--muted);
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+.ref-phase-row strong { color: var(--text); }
+
+/* Badge variants (add/defer may not exist yet) */
+.badge-add   { background: rgba(99,212,168,0.1);  color: var(--accent2); border: 1px solid rgba(99,212,168,0.25); }
+.badge-defer { background: rgba(240,168,79,0.1);  color: var(--warn);    border: 1px solid rgba(240,168,79,0.25); }

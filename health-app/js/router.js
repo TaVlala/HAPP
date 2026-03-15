@@ -1,6 +1,6 @@
 // HAPP — Router
 
-const PAGES = ['dashboard', 'schedule', 'measurements', 'archive', 'settings'];
+const PAGES = ['dashboard', 'schedule', 'measurements', 'archive', 'supplements', 'settings'];
 
 const Router = {
   currentPage: 'dashboard',

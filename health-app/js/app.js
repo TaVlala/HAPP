@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (page === 'schedule')     await SupplementsModule.render();
       if (page === 'measurements') await MeasurementsModule.render();
       if (page === 'archive')      await ArchiveModule.render();
+      if (page === 'supplements') SupplementsRefModule.init();
       if (page === 'settings')     await SupplementsModule.renderAllSupplements('all-supplements-container');
     } catch(e) {
       console.error('[Router] Render error on', page, e);
@@ -52,6 +53,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialise archive module
   await ArchiveModule.init();
+
+  // Initialise supplements reference page
+  SupplementsRefModule.init();
 
   // Reset day button
   const resetBtn = document.getElementById('reset-day-btn');

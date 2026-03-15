@@ -198,6 +198,51 @@
       </div>
     </div>
 
+
+    <!-- PAGE: Supplements Reference -->
+    <div class="page" id="page-supplements">
+      <div class="page-header">
+        <h1 class="page-title">Supplements</h1>
+        <p class="page-sub">Complete reference — dose, best form, timing, and why. Use for shopping and review.</p>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="ref-filter-bar" id="ref-filter-bar">
+        <div class="ref-filter-group">
+          <span class="ref-filter-label">Status</span>
+          <div class="ref-filter-pills" id="filter-status">
+            <button class="filter-pill active" data-filter="all">All</button>
+            <button class="filter-pill" data-filter="prescribed">Prescribed</button>
+            <button class="filter-pill" data-filter="active">Active</button>
+            <button class="filter-pill" data-filter="add">To Add</button>
+            <button class="filter-pill" data-filter="defer">Deferred</button>
+            <button class="filter-pill" data-filter="hold">On Hold</button>
+          </div>
+        </div>
+        <div class="ref-filter-group" style="margin-top:10px">
+          <span class="ref-filter-label">Impact</span>
+          <div class="ref-filter-pills" id="filter-impact">
+            <button class="filter-pill active" data-filter="all">All</button>
+            <button class="filter-pill" data-filter="critical">Critical</button>
+            <button class="filter-pill" data-filter="high">High</button>
+            <button class="filter-pill" data-filter="moderate">Moderate</button>
+          </div>
+        </div>
+        <div class="ref-filter-group" style="margin-top:10px">
+          <span class="ref-filter-label">Search</span>
+          <input type="text" class="input" id="ref-search" placeholder="Search supplements..." style="max-width:240px; height:32px; padding:6px 10px; font-size:13px">
+        </div>
+      </div>
+
+      <!-- Summary row -->
+      <div class="ref-summary" id="ref-summary"></div>
+
+      <!-- Supplements grid -->
+      <div class="ref-grid" id="ref-grid">
+        <div class="loading-msg">Loading supplements...</div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -218,6 +263,10 @@
   <div class="mobile-nav-item" data-nav="archive" onclick="Router.navigate('archive')">
     <span class="mobile-nav-icon">&#128193;</span>
     <span>Archive</span>
+  </div>
+  <div class="mobile-nav-item" data-nav="supplements" onclick="Router.navigate('supplements')">
+    <span class="mobile-nav-icon">💊</span>
+    <span>Supps</span>
   </div>
   <div class="mobile-nav-item" data-nav="settings" onclick="Router.navigate('settings')">
     <span class="mobile-nav-icon">&#9881;&#65039;</span>
@@ -243,6 +292,7 @@
 <script src="modules/supplementsModule.js"></script>
 <script src="modules/measurementsModule.js"></script>
 <script src="modules/archiveModule.js"></script>
+<script src="modules/supplementsRefModule.js"></script>
 <script src="ui/sidebar.js"></script>
 <script src="ui/cards.js"></script>
 <script src="ui/charts.js"></script>
