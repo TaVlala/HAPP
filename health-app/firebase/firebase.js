@@ -1,10 +1,10 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyBOWscNQCAsBeb3k2X-Ffw0eCbsZPsd8Wc",
-  authDomain: "health-dashboard-8cb07.firebaseapp.com",
-  projectId: "health-dashboard-8cb07",
-  storageBucket: "health-dashboard-8cb07.firebasestorage.app",
-  messagingSenderId: "534790791032",
-  appId: "1:534790791032:web:c62f121b5b3e86faf3328d"
+  apiKey: "%%FIREBASE_API_KEY%%",
+  authDomain: "%%FIREBASE_AUTH_DOMAIN%%",
+  projectId: "%%FIREBASE_PROJECT_ID%%",
+  storageBucket: "%%FIREBASE_STORAGE_BUCKET%%",
+  messagingSenderId: "%%FIREBASE_MESSAGING_SENDER_ID%%",
+  appId: "%%FIREBASE_APP_ID%%"
 };
 
 let db = null;
@@ -12,7 +12,7 @@ let firebaseReady = false;
 
 function initFirebase() {
   try {
-    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+    if (!firebaseConfig.apiKey || firebaseConfig.apiKey.startsWith('%%')) {
       console.warn('[Firebase] ⚠️ Not configured — running in local-only mode');
       firebaseReady = false;
       return;
