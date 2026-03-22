@@ -6,7 +6,6 @@ const Sidebar = {
     { id: 'dashboard',    label: 'Dashboard',    icon: '⬛', color: '#4f9cf0' },
     { id: 'schedule',     label: 'Daily Schedule', icon: '💊', color: '#63d4a8' },
     { id: 'measurements', label: 'Measurements',  icon: '📊', color: '#a78bfa' },
-    { id: 'archive',      label: 'Archive',       icon: '📁', color: '#f0a84f' },
     { id: 'supplements',  label: 'Supplements',   icon: '💊', color: '#63d4a8' },
     { id: 'settings',     label: 'Settings',      icon: '⚙️', color: '#7a8099' },
   ],
