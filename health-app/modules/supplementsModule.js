@@ -86,7 +86,7 @@ const SupplementsModule = {
     container.querySelectorAll('.supp-check-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        this.toggleCheck(btn.dataset.id);
+        this.toggleCheck(btn.dataset.slotKey);
       });
     });
 
@@ -130,6 +130,7 @@ const SupplementsModule = {
       if (slotActive.length > 0) {
         blocks.push({
           time: slot.time,
+          time_sort: slot.time_sort,
           note: slot.note || null,
           items: slotActive
         });
@@ -140,7 +141,7 @@ const SupplementsModule = {
     // Any active supplement not in the schedule goes into "Anytime" block
     const unscheduled = activeIds.filter(id => !scheduledIds.has(id));
     if (unscheduled.length > 0) {
-      blocks.push({ time: 'Anytime', note: null, items: unscheduled });
+      blocks.push({ time: 'Anytime', time_sort: 'anytime', note: null, items: unscheduled });
     }
 
     return blocks;
@@ -154,15 +155,16 @@ const SupplementsModule = {
           <div class="time-line"></div>
         </div>
         ${block.note ? `<div class="alert alert-info" style="margin-bottom:10px;font-size:12px">💡 ${block.note}</div>` : ''}
-        ${block.items.map(id => this._renderSuppCard(id)).join('')}
+        ${block.items.map(id => this._renderSuppCard(id, block.time_sort)).join('')}
       </div>
     `;
   },
 
-  _renderSuppCard(id) {
-    const state = this._states[id];
-    const seed = SUPPLEMENT_SEED.find(s => s.id === id);
-    const isChecked = this._todayChecked.has(id);
+  _renderSuppCard(id, time_sort) {
+    const slotKey  = id + ':' + (time_sort || 'anytime');
+    const state    = this._states[id];
+    const seed     = SUPPLEMENT_SEED.find(s => s.id === id);
+    const isChecked = this._todayChecked.has(slotKey);
     const name = seed ? seed.name : (state ? state.name : id);
     const dose = seed ? seed.dose : (state ? state.dose : '');
     const timing = seed ? seed.timing_detail || seed.timing : (state ? state.timing : '');
@@ -182,7 +184,7 @@ const SupplementsModule = {
     const rxBadge = impactLevel === 'prescribed' ? '<span class="badge badge-rx">🔵 Prescribed</span>' : '';
 
     return `
-      <div class="supp-card ${isChecked ? 'supp-done' : ''}" id="supp-card-${id}" data-id="${id}">
+      <div class="supp-card ${isChecked ? 'supp-done' : ''}" data-slot-key="${slotKey}">
         <div class="supp-card-header">
           <div class="supp-card-left">
             <span class="supp-name">${name}</span>
@@ -190,7 +192,7 @@ const SupplementsModule = {
             ${daysOn !== null ? `<span class="badge badge-muted">Day ${daysOn}</span>` : ''}
             ${daysLeft !== null ? `<span class="badge ${daysLeft <= 3 ? 'badge-danger' : 'badge-warn'}">⏱ ${daysLeft}d left</span>` : ''}
           </div>
-          <button class="supp-check-btn ${isChecked ? 'checked' : ''}" data-id="${id}" title="${isChecked ? 'Mark undone' : 'Mark done'}">
+          <button class="supp-check-btn ${isChecked ? 'checked' : ''}" data-slot-key="${slotKey}" title="${isChecked ? 'Mark undone' : 'Mark done'}">
             ${isChecked ? '✓' : ''}
           </button>
         </div>
@@ -361,8 +363,10 @@ const SupplementsModule = {
       isCustom: state.isCustom || false,
     });
 
-    // Remove from today's checked
-    this._todayChecked.delete(id);
+    // Remove all slot instances from today's checked
+    for (const key of this._todayChecked) {
+      if (key === id || key.startsWith(id + ':')) this._todayChecked.delete(key);
+    }
 
     // Reset state to not_started so it appears in schedule for future use
     this._states[id].status = 'not_started';
@@ -414,28 +418,29 @@ const SupplementsModule = {
 
   // ── Daily Check Toggle ────────────────────────────────────────────────────
 
-  async toggleCheck(id) {
-    if (this._todayChecked.has(id)) {
-      this._todayChecked.delete(id);
+  async toggleCheck(slotKey) {
+    if (this._todayChecked.has(slotKey)) {
+      this._todayChecked.delete(slotKey);
     } else {
-      this._todayChecked.add(id);
+      this._todayChecked.add(slotKey);
     }
 
-    // Update card UI
-    const card = document.getElementById('supp-card-' + id);
-    const btn = card ? card.querySelector('.supp-check-btn') : null;
-    if (card) card.classList.toggle('supp-done', this._todayChecked.has(id));
+    const checked = this._todayChecked.has(slotKey);
+
+    // Update card UI — find by data-slot-key
+    const card = document.querySelector(`.supp-card[data-slot-key="${slotKey}"]`);
+    const btn  = document.querySelector(`.supp-check-btn[data-slot-key="${slotKey}"]`);
+    if (card) card.classList.toggle('supp-done', checked);
     if (btn) {
-      btn.classList.toggle('checked', this._todayChecked.has(id));
-      btn.textContent = this._todayChecked.has(id) ? '✓' : '';
+      btn.classList.toggle('checked', checked);
+      btn.textContent = checked ? '✓' : '';
     }
 
-    // Save compliance
-    const activeIds = this._getActiveIds();
+    // Save compliance — store slot keys; total is slot-instance count
     await StorageService.saveDayCompliance(
       ComplianceService.todayKey(),
       Array.from(this._todayChecked),
-      activeIds.length
+      this._countTotalSlotInstances()
     );
 
     this._updateProgressBar();
@@ -495,15 +500,28 @@ const SupplementsModule = {
     return null;
   },
 
-  _updateProgressBar() {
-    const active = this._getActiveIds();
-    const done = this._todayChecked.size;
-    const total = active.length;
-    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  _countTotalSlotInstances() {
+    const activeIds = new Set(this._getActiveIds());
+    let count = 0;
+    const scheduledIds = new Set();
+    DAILY_SCHEDULE.forEach(slot => {
+      slot.items.forEach(id => {
+        if (activeIds.has(id)) { count++; scheduledIds.add(id); }
+      });
+    });
+    // Unscheduled active supplements count as 1 each
+    activeIds.forEach(id => { if (!scheduledIds.has(id)) count++; });
+    return count;
+  },
 
-    const fill = document.getElementById('schedule-prog-fill');
+  _updateProgressBar() {
+    const total = this._countTotalSlotInstances();
+    const done  = this._todayChecked.size;
+    const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+
+    const fill  = document.getElementById('schedule-prog-fill');
     const label = document.getElementById('schedule-prog-label');
-    if (fill) fill.style.width = pct + '%';
+    if (fill)  fill.style.width = pct + '%';
     if (label) label.textContent = `${done} of ${total} done (${pct}%)`;
   },
 
@@ -526,9 +544,9 @@ const SupplementsModule = {
   },
 
   getTodayPct() {
-    const active = this._getActiveIds();
-    if (!active.length) return 0;
-    return Math.round((this._todayChecked.size / active.length) * 100);
+    const total = this._countTotalSlotInstances();
+    if (!total) return 0;
+    return Math.round((this._todayChecked.size / total) * 100);
   },
 
   getStates() {
