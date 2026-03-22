@@ -123,14 +123,15 @@
     <!-- PAGE: Food Pairings -->
     <div class="page" id="page-food">
       <div class="page-header">
-        <h1 class="page-title">Food</h1>
-        <p class="page-sub">Personalised for GERD · NAFLD · Insulin resistance · Psoriasis</p>
+        <h1 class="page-title">Lifestyle</h1>
+        <p class="page-sub">Food pairings, diet rules, and daily protocols</p>
       </div>
 
       <!-- Sub-tabs -->
       <div class="supp-subtabs">
         <button class="supp-subtab active" onclick="FoodTabs.show('pairings')">🍽️ Pairings</button>
-        <button class="supp-subtab" onclick="FoodTabs.show('diet')">📋 Diet Rules</button>
+        <button class="supp-subtab" onclick="FoodTabs.show('diet')">📋 Diet</button>
+        <button class="supp-subtab" onclick="FoodTabs.show('lifestyle')">🌿 Lifestyle</button>
       </div>
 
       <!-- TAB: Food Pairings -->
@@ -283,15 +284,112 @@
 
       </div><!-- /food-tab-diet -->
 
+      <!-- TAB: Lifestyle Protocols -->
+      <div id="food-tab-lifestyle" style="display:none">
+
+        <!-- Sleep -->
+        <div class="card diet-card">
+          <div class="section-label">🌙 Sleep</div>
+          <div class="lifestyle-rows">
+            <div class="lifestyle-row"><div class="lifestyle-label">Position</div><div class="lifestyle-val">Left side only — reduces reflux AND improves sinus drainage</div></div>
+            <div class="lifestyle-row"><div class="lifestyle-label">Elevation</div><div class="lifestyle-val">Wedge pillow or raise bed head 15–20cm — not just extra pillows</div></div>
+            <div class="lifestyle-row"><div class="lifestyle-label">Minimum</div><div class="lifestyle-val">7 hours — below 6h measurably worsens HOMA-IR within days</div></div>
+            <div class="lifestyle-row"><div class="lifestyle-label">Screens</div><div class="lifestyle-val">Off 45 min before bed — blue light suppresses melatonin</div></div>
+            <div class="lifestyle-row"><div class="lifestyle-label">Humidity</div><div class="lifestyle-val">Cool-mist humidifier 40–50% — reduces nasal drip</div></div>
+            <div class="lifestyle-row" style="border-bottom:none"><div class="lifestyle-label">Allergens</div><div class="lifestyle-val">Allergen-proof pillow + mattress covers — wash bedding 60°C weekly</div></div>
+          </div>
+        </div>
+
+        <!-- Daily movement -->
+        <div class="card diet-card">
+          <div class="section-label">💪 Daily movement</div>
+          <div class="lifestyle-protocol-list">
+            <div class="lifestyle-protocol-item">🚶 <strong>10–15 min walk after every meal</strong> — single most effective intervention for insulin resistance</div>
+            <div class="lifestyle-protocol-item">💪 <strong>Resistance training 2–3×/week</strong> (when back allows) — muscle = primary glucose uptake site</div>
+            <div class="lifestyle-protocol-item">🧘 <strong>Diaphragmatic breathing 5 min</strong> morning + bedtime — strengthens LES, reduces anxiety</div>
+            <div class="lifestyle-protocol-item">🤸 <strong>Stretching/yoga 15–20 min daily</strong> — muscle tightness, parasympathetic activation</div>
+            <div class="lifestyle-protocol-item lifestyle-avoid">❌ <strong>Avoid:</strong> sit-ups, heavy deadlifts, Valsalva exercises — worsen GERD and back simultaneously</div>
+          </div>
+        </div>
+
+        <!-- Back exercises -->
+        <div class="card diet-card">
+          <div class="section-label">🔵 Back exercises (daily)</div>
+          <div class="lifestyle-protocol-list">
+            <div class="lifestyle-protocol-item">🔵 <strong>Piriformis stretch</strong> — figure-4 position, pull right knee to chest, feel deep stretch in left buttock. Hold 60 sec × 3. Morning, midday, bedtime.</div>
+            <div class="lifestyle-protocol-item">🔵 <strong>QL tennis ball release</strong> — ball under left lower back (above hip, beside spine). Sink in 60–90 sec. Once daily.</div>
+            <div class="lifestyle-protocol-item">🔵 <strong>Cat-cow</strong> — 10 slow reps morning and night</div>
+            <div class="lifestyle-protocol-item">🔵 <strong>Knee-to-chest stretch</strong> — hold 30 sec each side</div>
+            <div class="lifestyle-protocol-item">🔵 <strong>Child's pose</strong> — hold 60 sec</div>
+          </div>
+        </div>
+
+        <!-- Reflux management ladder -->
+        <div class="card diet-card">
+          <div class="section-label">🪜 Reflux management ladder</div>
+          <div class="lifestyle-ladder">
+            <div class="lifestyle-ladder-step">
+              <div class="lifestyle-ladder-num">1️⃣</div>
+              <div>
+                <div class="lifestyle-ladder-title">Prevention (every day)</div>
+                <div class="lifestyle-ladder-desc">Meal timing, left-side sleep, wedge pillow, small portions, no triggers, after-meal walks, diaphragmatic breathing</div>
+              </div>
+            </div>
+            <div class="lifestyle-ladder-step">
+              <div class="lifestyle-ladder-num">2️⃣</div>
+              <div>
+                <div class="lifestyle-ladder-title">Gaviscon or Talcid</div>
+                <div class="lifestyle-ladder-desc">First symptom. Mechanical — no acid suppression, no dependency risk. Use before escalating.</div>
+              </div>
+            </div>
+            <div class="lifestyle-ladder-step">
+              <div class="lifestyle-ladder-num">3️⃣</div>
+              <div>
+                <div class="lifestyle-ladder-title">Famotidine (H2 blocker)</div>
+                <div class="lifestyle-ladder-desc">Flare &gt;2 days uncontrolled by Gaviscon. Intermediate step — discuss with doctor as go-to for moderate flares.</div>
+              </div>
+            </div>
+            <div class="lifestyle-ladder-step" style="border-bottom:none">
+              <div class="lifestyle-ladder-num">4️⃣</div>
+              <div>
+                <div class="lifestyle-ladder-title">Nexium — short course only</div>
+                <div class="lifestyle-ladder-desc">Significant acute flare. 2 weeks max. Taper over 3–4 days when stopping — never abruptly.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sinus -->
+        <div class="card diet-card">
+          <div class="section-label">👃 Sinus / nasal drip (nightly)</div>
+          <div class="lifestyle-sinus-ladder">
+            <div class="lifestyle-sinus-step">Saline nasal rinse every night before bed</div>
+            <div class="lifestyle-sinus-arrow">↓</div>
+            <div class="lifestyle-sinus-step">Left-side sleeping</div>
+            <div class="lifestyle-sinus-arrow">↓</div>
+            <div class="lifestyle-sinus-step">Humidifier</div>
+            <div class="lifestyle-sinus-arrow">↓</div>
+            <div class="lifestyle-sinus-step">Dairy + gluten trial</div>
+            <div class="lifestyle-sinus-arrow">↓</div>
+            <div class="lifestyle-sinus-step">Quercetin 500mg daily</div>
+            <div class="lifestyle-sinus-arrow">↓</div>
+            <div class="lifestyle-sinus-step">Dust mite covers if perennial drip</div>
+          </div>
+        </div>
+
+      </div><!-- /food-tab-lifestyle -->
+
       <script>
         const FoodTabs = {
           show(tab) {
-            document.getElementById('food-tab-pairings').style.display = tab === 'pairings' ? '' : 'none';
-            document.getElementById('food-tab-diet').style.display     = tab === 'diet'     ? '' : 'none';
+            document.getElementById('food-tab-pairings').style.display   = tab === 'pairings'   ? '' : 'none';
+            document.getElementById('food-tab-diet').style.display       = tab === 'diet'       ? '' : 'none';
+            document.getElementById('food-tab-lifestyle').style.display  = tab === 'lifestyle'  ? '' : 'none';
             document.querySelectorAll('#page-food .supp-subtab').forEach(btn => {
               btn.classList.toggle('active',
-                (tab === 'pairings' && btn.textContent.includes('Pairings')) ||
-                (tab === 'diet'     && btn.textContent.includes('Diet'))
+                (tab === 'pairings'  && btn.textContent.includes('Pairings'))  ||
+                (tab === 'diet'      && btn.textContent.includes('Diet'))       ||
+                (tab === 'lifestyle' && btn.textContent.includes('Lifestyle'))
               );
             });
           }
@@ -604,8 +702,8 @@
     <span>Body</span>
   </div>
   <div class="mobile-nav-item" data-nav="food" onclick="Router.navigate('food')">
-    <span class="mobile-nav-icon">🍽️</span>
-    <span>Food</span>
+    <span class="mobile-nav-icon">🌿</span>
+    <span>Lifestyle</span>
   </div>
   <div class="mobile-nav-item" data-nav="supplements" onclick="Router.navigate('supplements')">
     <span class="mobile-nav-icon">💊</span>
