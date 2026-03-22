@@ -488,9 +488,12 @@
           <p style="font-size:13px;color:var(--muted)">Loading…</p>
         </div>
       </div>
-      <!-- Archive link -->
+      <!-- Data links -->
       <div class="card settings-card" style="margin-top:20px">
         <div class="section-label">Data</div>
+        <button class="btn btn-secondary" onclick="Router.navigate('measurements')" style="width:100%;text-align:left;margin-bottom:10px">
+          📊 Body Measurements — weight, blood pressure, labs
+        </button>
         <button class="btn btn-secondary" onclick="Router.navigate('archive')" style="width:100%;text-align:left">
           📁 View Archive — stopped &amp; completed supplements
         </button>
@@ -694,12 +697,8 @@
     <span>Dashboard</span>
   </div>
   <div class="mobile-nav-item" data-nav="schedule" onclick="Router.navigate('schedule')">
-    <span class="mobile-nav-icon">&#128138;</span>
+    <span class="mobile-nav-icon">📅</span>
     <span>Schedule</span>
-  </div>
-  <div class="mobile-nav-item" data-nav="measurements" onclick="Router.navigate('measurements')">
-    <span class="mobile-nav-icon">&#128202;</span>
-    <span>Body</span>
   </div>
   <div class="mobile-nav-item" data-nav="food" onclick="Router.navigate('food')">
     <span class="mobile-nav-icon">🌿</span>
