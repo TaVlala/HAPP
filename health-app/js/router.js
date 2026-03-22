@@ -6,12 +6,14 @@ const Router = {
   currentPage: 'dashboard',
 
   init() {
-    this.navigate('dashboard');
+    const saved = localStorage.getItem('happ_page');
+    this.navigate(saved && PAGES.includes(saved) ? saved : 'dashboard');
   },
 
   navigate(page) {
     if (!PAGES.includes(page)) return;
     this.currentPage = page;
+    localStorage.setItem('happ_page', page);
 
     // Switch visible page
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
