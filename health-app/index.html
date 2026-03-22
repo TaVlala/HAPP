@@ -223,6 +223,15 @@
         <p class="page-sub">Complete reference — dose, best form, timing, and why. Use for shopping and review.</p>
       </div>
 
+      <!-- Sub-tabs -->
+      <div class="supp-subtabs">
+        <button class="supp-subtab active" onclick="SuppTabs.show('catalog')">💊 Catalog</button>
+        <button class="supp-subtab" onclick="SuppTabs.show('interactions')">⚡ Interactions</button>
+      </div>
+
+      <!-- CATALOG TAB -->
+      <div id="supp-tab-catalog">
+
       <!-- Filter bar -->
       <div class="ref-filter-bar" id="ref-filter-bar">
         <div class="ref-filter-group">
@@ -259,8 +268,11 @@
         <div class="loading-msg">Loading supplements...</div>
       </div>
 
-      <!-- Interactions & Rules -->
-      <div class="interactions-section">
+      </div><!-- /supp-tab-catalog -->
+
+      <!-- INTERACTIONS TAB -->
+      <div id="supp-tab-interactions" style="display:none">
+      <div class="interactions-section" style="margin-top:0;padding-top:0;border-top:none">
         <h2 class="interactions-title">Interactions &amp; Rules</h2>
         <p class="interactions-sub">The rules that must not be broken — timing and combinations that affect safety or efficacy</p>
 
@@ -381,7 +393,8 @@
             <div class="interaction-detail">Vitamin C is a cofactor in collagen synthesis. Squeeze of lemon in water alongside collagen, or any vitamin C food at breakfast.</div>
           </div>
         </div>
-      </div>
+      </div><!-- /interactions-section -->
+      </div><!-- /supp-tab-interactions -->
     </div>
 
   </main>
@@ -460,6 +473,17 @@ initFirebase();
 <script src="modules/measurementsModule.js"></script>
 <script src="modules/archiveModule.js"></script>
 <script src="modules/supplementsRefModule.js"></script>
+<script>
+const SuppTabs = {
+  show(tab) {
+    document.getElementById('supp-tab-catalog').style.display      = tab === 'catalog'      ? '' : 'none';
+    document.getElementById('supp-tab-interactions').style.display = tab === 'interactions' ? '' : 'none';
+    document.querySelectorAll('.supp-subtab').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase().includes(tab));
+    });
+  }
+};
+</script>
 <script src="data/foods.js"></script>
 <script src="modules/foodModule.js"></script>
 <script src="ui/sidebar.js"></script>
