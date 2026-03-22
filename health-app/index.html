@@ -464,10 +464,21 @@
       </div>
       <!-- Manage all supplements -->
       <div class="card settings-card" style="margin-top:20px">
-        <div class="section-label">Manage Supplements</div>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Start, pause, or stop any supplement. Phases are shown as guidance only — start anything anytime.</p>
-        <div id="all-supplements-container">
-          <div class="loading-msg">Loading...</div>
+        <button class="collapsible-header" id="manage-supp-toggle" onclick="
+          const body = document.getElementById('manage-supp-body');
+          const icon = document.getElementById('manage-supp-chevron');
+          const open = body.style.display !== 'none';
+          body.style.display = open ? 'none' : '';
+          icon.textContent = open ? '›' : '⌄';
+        ">
+          <span class="section-label" style="margin:0">Manage Supplements</span>
+          <span class="collapsible-chevron" id="manage-supp-chevron">›</span>
+        </button>
+        <div id="manage-supp-body" style="display:none">
+          <p style="font-size:13px;color:var(--muted);margin:12px 0 16px">Start, pause, or stop any supplement. Phases are shown as guidance only — start anything anytime.</p>
+          <div id="all-supplements-container">
+            <div class="loading-msg">Loading...</div>
+          </div>
         </div>
       </div>
       <!-- Encryption key card -->
