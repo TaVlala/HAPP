@@ -201,6 +201,13 @@
         <button class="btn btn-ghost" id="save-enc-key-btn" style="margin-top:12px">Update Key</button>
         <p class="field-hint" style="margin-top:8px">&#9888;&#65039; If you change this key, existing encrypted data will become unreadable. Keep it safe.</p>
       </div>
+      <!-- Notifications card -->
+      <div class="card settings-card" style="margin-top:20px">
+        <div class="section-label">Reminders &amp; Notifications</div>
+        <div id="notif-settings-container">
+          <p style="font-size:13px;color:var(--muted)">Loading…</p>
+        </div>
+      </div>
       <!-- Archive link -->
       <div class="card settings-card" style="margin-top:20px">
         <div class="section-label">Data</div>
@@ -486,6 +493,7 @@ const SuppTabs = {
 </script>
 <script src="data/foods.js"></script>
 <script src="modules/foodModule.js"></script>
+<script src="modules/notificationsModule.js"></script>
 <script src="ui/sidebar.js"></script>
 <script src="ui/cards.js"></script>
 <script src="ui/charts.js"></script>

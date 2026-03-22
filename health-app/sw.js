@@ -2,8 +2,8 @@
 // Caches all app shell files for offline use
 // Strategy: Network First for HTML, Cache First for static assets
 
-const CACHE_NAME    = 'happ-v6';
-const CACHE_VERSION = 6;
+const CACHE_NAME    = 'happ-v7';
+const CACHE_VERSION = 7;
 
 const STATIC_ASSETS = [
   '/css/base.css',
@@ -20,6 +20,7 @@ const STATIC_ASSETS = [
   '/modules/measurementsModule.js',
   '/modules/archiveModule.js',
   '/modules/supplementsRefModule.js',
+  '/modules/notificationsModule.js',
   '/ui/sidebar.js',
   '/ui/cards.js',
   '/ui/charts.js',
