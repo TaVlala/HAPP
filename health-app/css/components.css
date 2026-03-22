@@ -622,6 +622,76 @@
   text-align: center; line-height: 1.3;
 }
 
+/* ── Diet Rules Tab ──────────────────────────────────────────────────────── */
+.diet-card { margin-bottom: 16px; }
+
+.diet-principles { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.diet-principle-item {
+  font-size: 13px; color: var(--text); padding: 8px 12px;
+  background: rgba(79,156,240,0.06); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.diet-group {
+  padding-bottom: 16px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.diet-group-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin-bottom: 10px; display: flex; align-items: baseline; gap: 8px;
+}
+.diet-group-sub { font-size: 11px; font-weight: 400; color: var(--muted); }
+.diet-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.diet-item {
+  font-size: 12px; color: var(--text); padding: 4px 10px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;
+}
+.diet-item-note { font-size: 10px; color: var(--muted); }
+
+.diet-filter-bar {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+}
+.diet-filter-pill {
+  font-size: 11px; font-weight: 600; padding: 5px 12px;
+  border-radius: 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.diet-filter-pill:hover { color: var(--text); border-color: var(--border2); }
+.diet-filter-pill.active {
+  background: rgba(79,156,240,0.15); color: var(--accent);
+  border-color: var(--accent);
+}
+
+.avoid-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.avoid-item:last-child { border-bottom: none; }
+.avoid-emoji { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+.avoid-name  { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.avoid-why   { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+.diet-trial-row { display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.diet-trial-badge {
+  font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 20px; flex-shrink: 0;
+}
+.diet-trial-badge.warn { background: rgba(240,168,79,0.12); color: var(--warn); }
+.diet-trial-desc { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+.diet-protein-list { display: flex; flex-direction: column; gap: 0; }
+.diet-protein-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+}
+.diet-protein-row:last-child { border-bottom: none; }
+.diet-protein-food { font-size: 13px; color: var(--text); }
+.diet-protein-g    { font-size: 13px; font-weight: 700; color: var(--accent2); flex-shrink: 0; }
+.diet-protein-total .diet-protein-food { font-weight: 700; }
+.diet-protein-total .diet-protein-g    { font-size: 14px; color: var(--accent2); }
+
 /* ── Toggle Switch ───────────────────────────────────────────────────────── */
 .toggle-switch {
   position: relative;

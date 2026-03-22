@@ -123,11 +123,193 @@
     <!-- PAGE: Food Pairings -->
     <div class="page" id="page-food">
       <div class="page-header">
-        <h1 class="page-title">Food Pairings</h1>
+        <h1 class="page-title">Food</h1>
         <p class="page-sub">Personalised for GERD · NAFLD · Insulin resistance · Psoriasis</p>
       </div>
-      <div id="food-content"></div>
-    </div>
+
+      <!-- Sub-tabs -->
+      <div class="supp-subtabs">
+        <button class="supp-subtab active" onclick="FoodTabs.show('pairings')">🍽️ Pairings</button>
+        <button class="supp-subtab" onclick="FoodTabs.show('diet')">📋 Diet Rules</button>
+      </div>
+
+      <!-- TAB: Food Pairings -->
+      <div id="food-tab-pairings">
+        <div id="food-content"></div>
+      </div>
+
+      <!-- TAB: Diet Rules -->
+      <div id="food-tab-diet" style="display:none">
+
+        <!-- Core principles -->
+        <div class="card diet-card">
+          <div class="section-label">Core principles</div>
+          <div class="diet-principles">
+            <div class="diet-principle-item">🍽️ 4–5 small meals/day</div>
+            <div class="diet-principle-item">⚖️ Always pair carbs with protein or fat — never carbs alone</div>
+            <div class="diet-principle-item">🕐 Stop eating 3h before bed</div>
+            <div class="diet-principle-item">🐢 Eat slowly (20+ min per meal)</div>
+            <div class="diet-principle-item">💧 2–2.5L still water daily</div>
+          </div>
+        </div>
+
+        <!-- Eat freely -->
+        <div class="card diet-card">
+          <div class="section-label">Eat freely</div>
+
+          <div class="diet-group">
+            <div class="diet-group-title">🥩 Proteins <span class="diet-group-sub">target 120–150g/day</span></div>
+            <div class="diet-items">
+              <span class="diet-item">Chicken</span>
+              <span class="diet-item">Beef &amp; pork <span class="diet-item-note">2–3×/week max</span></span>
+              <span class="diet-item">Eggs (boiled, poached, scrambled)</span>
+              <span class="diet-item">Greek yogurt <span class="diet-item-note">not regular</span></span>
+              <span class="diet-item">Cottage cheese</span>
+              <span class="diet-item">Hard cheese <span class="diet-item-note">moderate</span></span>
+            </div>
+          </div>
+
+          <div class="diet-group">
+            <div class="diet-group-title">🌾 Carbs <span class="diet-group-sub">always with protein or fat</span></div>
+            <div class="diet-items">
+              <span class="diet-item">Oats <span class="diet-item-note">plain, not instant</span></span>
+              <span class="diet-item">Sweet potato <span class="diet-item-note">safer than regular</span></span>
+              <span class="diet-item">Potatoes <span class="diet-item-note">watch psoriasis response</span></span>
+              <span class="diet-item">Rice <span class="diet-item-note">small portions</span></span>
+              <span class="diet-item">Pasta <span class="diet-item-note">small portions</span></span>
+            </div>
+          </div>
+
+          <div class="diet-group">
+            <div class="diet-group-title">🫒 Fats &amp; anti-inflammatory</div>
+            <div class="diet-items">
+              <span class="diet-item">Extra virgin olive oil <span class="diet-item-note">1–2 tbsp/day</span></span>
+              <span class="diet-item">Avocado</span>
+              <span class="diet-item">Walnuts, almonds <span class="diet-item-note">small handful</span></span>
+              <span class="diet-item">Turmeric + black pepper <span class="diet-item-note">cooking</span></span>
+              <span class="diet-item">Ginger</span>
+            </div>
+          </div>
+
+          <div class="diet-group" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+            <div class="diet-group-title">🥦 Vegetables <span class="diet-group-sub">cooked preferred</span></div>
+            <div class="diet-items">
+              <span class="diet-item">Zucchini, carrots, green beans</span>
+              <span class="diet-item">Spinach, cauliflower</span>
+              <span class="diet-item">Garlic, onion <span class="diet-item-note">cooked</span></span>
+              <span class="diet-item">Bitter greens <span class="diet-item-note">rocket, endive</span></span>
+              <span class="diet-item">Green tea <span class="diet-item-note">1–2 cups/day</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foods to avoid -->
+        <div class="card diet-card">
+          <div class="section-label">Foods to avoid</div>
+
+          <!-- Filter pills -->
+          <div class="diet-filter-bar">
+            <button class="diet-filter-pill active" data-filter="all"          onclick="DietFilter.apply('all')">All</button>
+            <button class="diet-filter-pill"         data-filter="gerd"         onclick="DietFilter.apply('gerd')">GERD / Reflux</button>
+            <button class="diet-filter-pill"         data-filter="blood-sugar"  onclick="DietFilter.apply('blood-sugar')">Blood sugar</button>
+            <button class="diet-filter-pill"         data-filter="liver"        onclick="DietFilter.apply('liver')">Liver</button>
+            <button class="diet-filter-pill"         data-filter="psoriasis"    onclick="DietFilter.apply('psoriasis')">Psoriasis</button>
+            <button class="diet-filter-pill"         data-filter="bloating"     onclick="DietFilter.apply('bloating')">Bloating</button>
+            <button class="diet-filter-pill"         data-filter="uric-acid"    onclick="DietFilter.apply('uric-acid')">Uric acid</button>
+          </div>
+
+          <div id="avoid-items-list">
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">☕</span><div><div class="avoid-name">Coffee</div><div class="avoid-why">Relaxes LES — direct reflux trigger</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🍵</span><div><div class="avoid-name">Strong tea</div><div class="avoid-why">Caffeine relaxes LES, worsens reflux</div></div></div>
+            <div class="avoid-item" data-reason="gerd liver psoriasis"><span class="avoid-emoji">🍷</span><div><div class="avoid-name">Alcohol</div><div class="avoid-why">Relaxes LES, inflames liver, psoriasis trigger</div></div></div>
+            <div class="avoid-item" data-reason="gerd psoriasis"><span class="avoid-emoji">🍫</span><div><div class="avoid-name">Chocolate</div><div class="avoid-why">Relaxes LES + pro-inflammatory</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🌿</span><div><div class="avoid-name">Mint / peppermint</div><div class="avoid-why">Significantly relaxes LES</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🍅</span><div><div class="avoid-name">Tomatoes &amp; tomato products</div><div class="avoid-why">Acidic + LES irritant + nightshade</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🍊</span><div><div class="avoid-name">Citrus juice</div><div class="avoid-why">Highly acidic — direct esophageal irritant</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🥤</span><div><div class="avoid-name">Carbonated drinks</div><div class="avoid-why">Gas pressure pushes acid up through LES</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🍟</span><div><div class="avoid-name">Fried &amp; fatty foods</div><div class="avoid-why">Slow gastric emptying → prolonged acid exposure</div></div></div>
+            <div class="avoid-item" data-reason="gerd"><span class="avoid-emoji">🌶️</span><div><div class="avoid-name">Spicy food</div><div class="avoid-why">Direct esophageal and gastric irritant</div></div></div>
+            <div class="avoid-item" data-reason="blood-sugar"><span class="avoid-emoji">🍞</span><div><div class="avoid-name">White bread</div><div class="avoid-why">Rapid glucose spike — no fibre buffer</div></div></div>
+            <div class="avoid-item" data-reason="blood-sugar"><span class="avoid-emoji">🍚</span><div><div class="avoid-name">White rice (large portions)</div><div class="avoid-why">High glycaemic — use small portions only</div></div></div>
+            <div class="avoid-item" data-reason="blood-sugar liver"><span class="avoid-emoji">🥤</span><div><div class="avoid-name">Sugary drinks &amp; juice</div><div class="avoid-why">Liquid fructose — most direct liver damage</div></div></div>
+            <div class="avoid-item" data-reason="blood-sugar"><span class="avoid-emoji">🧁</span><div><div class="avoid-name">Pastries, biscuits, cakes</div><div class="avoid-why">Refined carbs + seed oils = double hit</div></div></div>
+            <div class="avoid-item" data-reason="blood-sugar liver"><span class="avoid-emoji">⚡</span><div><div class="avoid-name">Energy drinks</div><div class="avoid-why">High fructose + caffeine — avoid entirely</div></div></div>
+            <div class="avoid-item" data-reason="blood-sugar liver"><span class="avoid-emoji">🍯</span><div><div class="avoid-name">Honey &amp; syrups</div><div class="avoid-why">Fructose load — stresses fatty liver</div></div></div>
+            <div class="avoid-item" data-reason="liver psoriasis"><span class="avoid-emoji">🛢️</span><div><div class="avoid-name">Seed oils (sunflower, corn, soy)</div><div class="avoid-why">High omega-6 → systemic inflammation + liver load</div></div></div>
+            <div class="avoid-item" data-reason="liver psoriasis"><span class="avoid-emoji">🏭</span><div><div class="avoid-name">Ultra-processed foods</div><div class="avoid-why">Additives, seed oils, hidden sugars</div></div></div>
+            <div class="avoid-item" data-reason="psoriasis"><span class="avoid-emoji">🥩</span><div><div class="avoid-name">Processed meat (daily)</div><div class="avoid-why">Salami, sausage, ham — Th17 inflammation</div></div></div>
+            <div class="avoid-item" data-reason="psoriasis"><span class="avoid-emoji">🫑</span><div><div class="avoid-name">Bell peppers</div><div class="avoid-why">Nightshade family — monitor psoriasis response</div></div></div>
+            <div class="avoid-item" data-reason="psoriasis"><span class="avoid-emoji">🥔</span><div><div class="avoid-name">Potatoes (monitor)</div><div class="avoid-why">Nightshade — trial to assess skin response</div></div></div>
+            <div class="avoid-item" data-reason="psoriasis"><span class="avoid-emoji">🍆</span><div><div class="avoid-name">Aubergine / eggplant</div><div class="avoid-why">Nightshade + personal dislike — avoid</div></div></div>
+            <div class="avoid-item" data-reason="bloating"><span class="avoid-emoji">🧅</span><div><div class="avoid-name">Raw onions</div><div class="avoid-why">High FODMAP — cook them instead</div></div></div>
+            <div class="avoid-item" data-reason="bloating"><span class="avoid-emoji">🥬</span><div><div class="avoid-name">Raw cruciferous veg</div><div class="avoid-why">Raw cabbage, broccoli — cook to reduce gas</div></div></div>
+            <div class="avoid-item" data-reason="bloating"><span class="avoid-emoji">🍎</span><div><div class="avoid-name">Raw apples</div><div class="avoid-why">Sorbitol content causes fermentation and gas</div></div></div>
+            <div class="avoid-item" data-reason="bloating"><span class="avoid-emoji">🫘</span><div><div class="avoid-name">Beans &amp; lentils (large portions)</div><div class="avoid-why">Fermentable fibres — small amounts only</div></div></div>
+            <div class="avoid-item" data-reason="bloating"><span class="avoid-emoji">🍬</span><div><div class="avoid-name">Chewing gum</div><div class="avoid-why">Swallowed air (aerophagia) + sorbitol</div></div></div>
+            <div class="avoid-item" data-reason="uric-acid"><span class="avoid-emoji">🫀</span><div><div class="avoid-name">Organ meats</div><div class="avoid-why">Liver, kidney — very high purine content</div></div></div>
+            <div class="avoid-item" data-reason="uric-acid"><span class="avoid-emoji">🦞</span><div><div class="avoid-name">Shellfish</div><div class="avoid-why">High purines — already not eating seafood ✓</div></div></div>
+            <div class="avoid-item" data-reason="uric-acid liver"><span class="avoid-emoji">🧃</span><div><div class="avoid-name">High-fructose corn syrup</div><div class="avoid-why">Raises uric acid + direct liver damage</div></div></div>
+          </div>
+        </div>
+
+        <!-- Elimination trials -->
+        <div class="card diet-card">
+          <div class="section-label">Elimination trials (planned)</div>
+          <div class="diet-trial-row">
+            <span class="diet-trial-badge warn">⚠ Dairy-free trial</span>
+            <span class="diet-trial-desc">3 weeks — assess skin + sinus response</span>
+          </div>
+          <div class="diet-trial-row" style="margin-top:10px">
+            <span class="diet-trial-badge warn">⚠ Gluten-free trial</span>
+            <span class="diet-trial-desc">6 weeks — most impactful for psoriasis + gut barrier</span>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:12px">Do one at a time so you know which is the trigger.</p>
+        </div>
+
+        <!-- Daily protein target -->
+        <div class="card diet-card">
+          <div class="section-label">Daily protein target</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Achievable from food alone — 120–150g/day</p>
+          <div class="diet-protein-list">
+            <div class="diet-protein-row"><span class="diet-protein-food">3 eggs at breakfast</span><span class="diet-protein-g">18g</span></div>
+            <div class="diet-protein-row"><span class="diet-protein-food">200g Greek yogurt</span><span class="diet-protein-g">20g</span></div>
+            <div class="diet-protein-row"><span class="diet-protein-food">200g chicken breast at lunch</span><span class="diet-protein-g">46g</span></div>
+            <div class="diet-protein-row"><span class="diet-protein-food">100g cottage cheese snack</span><span class="diet-protein-g">12g</span></div>
+            <div class="diet-protein-row"><span class="diet-protein-food">150g beef/pork at dinner</span><span class="diet-protein-g">35g</span></div>
+            <div class="diet-protein-row diet-protein-total"><span class="diet-protein-food">Total</span><span class="diet-protein-g">~131g ✓</span></div>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:10px">+ 10–15g collagen peptides → pushes to 141–146g on lighter food days</p>
+        </div>
+
+      </div><!-- /food-tab-diet -->
+
+      <script>
+        const FoodTabs = {
+          show(tab) {
+            document.getElementById('food-tab-pairings').style.display = tab === 'pairings' ? '' : 'none';
+            document.getElementById('food-tab-diet').style.display     = tab === 'diet'     ? '' : 'none';
+            document.querySelectorAll('#page-food .supp-subtab').forEach(btn => {
+              btn.classList.toggle('active',
+                (tab === 'pairings' && btn.textContent.includes('Pairings')) ||
+                (tab === 'diet'     && btn.textContent.includes('Diet'))
+              );
+            });
+          }
+        };
+        const DietFilter = {
+          apply(reason) {
+            document.querySelectorAll('.avoid-item').forEach(el => {
+              const reasons = el.dataset.reason.split(' ');
+              el.style.display = (reason === 'all' || reasons.includes(reason)) ? '' : 'none';
+            });
+            document.querySelectorAll('.diet-filter-pill').forEach(btn => {
+              btn.classList.toggle('active', btn.dataset.filter === reason);
+            });
+          }
+        };
+      </script>
+
+    </div><!-- /page-food -->
 
     <!-- PAGE: Archive -->
     <div class="page" id="page-archive">
