@@ -120,6 +120,15 @@
       </div>
     </div>
 
+    <!-- PAGE: Food Pairings -->
+    <div class="page" id="page-food">
+      <div class="page-header">
+        <h1 class="page-title">Food Pairings</h1>
+        <p class="page-sub">Personalised for GERD · NAFLD · Insulin resistance · Psoriasis</p>
+      </div>
+      <div id="food-content"></div>
+    </div>
+
     <!-- PAGE: Archive -->
     <div class="page" id="page-archive">
       <div class="page-header">
@@ -268,6 +277,10 @@
     <span class="mobile-nav-icon">&#128202;</span>
     <span>Body</span>
   </div>
+  <div class="mobile-nav-item" data-nav="food" onclick="Router.navigate('food')">
+    <span class="mobile-nav-icon">🍽️</span>
+    <span>Food</span>
+  </div>
   <div class="mobile-nav-item" data-nav="supplements" onclick="Router.navigate('supplements')">
     <span class="mobile-nav-icon">💊</span>
     <span>Supps</span>
@@ -323,6 +336,8 @@ initFirebase();
 <script src="modules/measurementsModule.js"></script>
 <script src="modules/archiveModule.js"></script>
 <script src="modules/supplementsRefModule.js"></script>
+<script src="data/foods.js"></script>
+<script src="modules/foodModule.js"></script>
 <script src="ui/sidebar.js"></script>
 <script src="ui/cards.js"></script>
 <script src="ui/charts.js"></script>

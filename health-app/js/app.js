@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Handle deep links (?page=schedule etc)
   const urlParams = new URLSearchParams(window.location.search);
   const deepPage  = urlParams.get('page');
-  if (deepPage && ['dashboard','schedule','measurements','archive','supplements','settings'].includes(deepPage)) {
+  if (deepPage && ['dashboard','schedule','measurements','archive','food','supplements','settings'].includes(deepPage)) {
     Router.navigate(deepPage);
   }
 

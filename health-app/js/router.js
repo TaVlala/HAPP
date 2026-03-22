@@ -1,6 +1,6 @@
 // HAPP — Router
 
-const PAGES = ['dashboard', 'schedule', 'measurements', 'archive', 'supplements', 'settings'];
+const PAGES = ['dashboard', 'schedule', 'measurements', 'archive', 'food', 'supplements', 'settings'];
 
 const Router = {
   currentPage: 'dashboard',
@@ -30,6 +30,9 @@ const Router = {
         });
       }
     }
+
+    // Init food module on first visit
+    if (page === 'food') FoodModule.init();
 
     // Scroll to top
     document.querySelector('.main-content').scrollTop = 0;
