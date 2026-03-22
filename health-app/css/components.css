@@ -453,18 +453,30 @@
 
 /* ── Supplement Sub-tabs ─────────────────────────────────────────────────── */
 .supp-subtabs {
-  display: flex; gap: 8px; margin-bottom: 20px;
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px;
 }
 .supp-subtab {
-  flex: 1; padding: 10px 0; font-size: 13px; font-weight: 600;
-  border-radius: var(--radius-sm); border: 1px solid var(--border);
-  background: var(--surface); color: var(--muted);
-  cursor: pointer; transition: all 0.15s;
+  flex: 1;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
 }
-.supp-subtab:hover { border-color: var(--border2); color: var(--text); }
+.supp-subtab:hover { color: var(--text); }
 .supp-subtab.active {
-  background: rgba(79,156,240,0.12);
-  border-color: rgba(79,156,240,0.4);
+  background: rgba(79,156,240,0.15);
   color: var(--accent);
 }
 
